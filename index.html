@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Runner Event</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="game-wrapper">
+    <!-- UI HUD -->
+    <div id="hud">
+      <div class="stat">Score: <span id="score">0</span></div>
+      <div class="stat">High Score: <span id="high-score">0</span></div>
+      <div class="stat">Coins: <span id="coins">0</span></div>
+      <!-- BUG 1: The pause button just refreshes the page instead of pausing! -->
+      <button onclick="location.reload()" id="pause-btn">Pause</button>
+    </div>
+
+    <!-- Start Screen Overlay -->
+    <div id="start-screen" class="overlay">
+      <h1>NEON RUNNER</h1>
+      <button id="start-btn">Start Game</button>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="game-over-screen" class="overlay hidden">
+      <h1>GAME OVER</h1>
+      <button id="restart-btn">Try Again</button>
+    </div>
+
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
