@@ -15,7 +15,7 @@
       <div class="stat">High Score: <span id="high-score">0</span></div>
       <div class="stat">Coins: <span id="coins">0</span></div>
       <!-- BUG 1: The pause button just refreshes the page instead of pausing! -->
-      <button onclick="location.reload()" id="pause-btn">Pause</button>
+      <button onclick="gameRunning = !gameRunning; if(gameRunning) gameLoop();" id="pause-btn">Pause</button>
     </div>
 
     <!-- Start Screen Overlay -->
