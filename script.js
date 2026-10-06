@@ -89,11 +89,9 @@ function gameLoop() {
         if (coin.active && player.x < coin.x + 20 && player.x + player.width > coin.x &&
             player.y < coin.y + 20 && player.y + player.height > coin.y) {
             
-            coinsCollected -= 1; 
+            coinsCollected += 1; 
             
-            player.width -= 5;
-            
-            coins.splice(0, 1); 
+            coin.active = false; 
             
             document.getElementById("coins").innerText = coinsCollected;
         }
@@ -127,7 +125,7 @@ function draw() {
 
 
     ctx.fillStyle = "#228B22"; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height - groundY - player.height);
+    ctx.fillRect(0, groundY + player.height, canvas.width, canvas.height - (groundY + player.height));
 
     // Draw Player
     ctx.fillStyle = "#00ffff";
@@ -148,3 +146,16 @@ function draw() {
 }
 document.getElementById("start-btn").addEventListener("click", startGame);
 document.getElementById("restart-btn").addEventListener("click", startGame);
+document.getElementById("pause-btn").addEventListener("click", () => {
+    if (document.getElementById("start-screen").classList.contains("hidden") && 
+        document.getElementById("game-over-screen").classList.contains("hidden")) {
+        if (gameRunning) {
+            gameRunning = false;
+            document.getElementById("pause-btn").innerText = "Resume";
+        } else {
+            gameRunning = true;
+            document.getElementById("pause-btn").innerText = "Pause";
+            gameLoop();
+        }
+    }
+});
