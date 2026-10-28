@@ -40,6 +40,7 @@ function startGame() {
 }
 
 function gameOver() {
+    gameRunning = false;
     document.getElementById("game-over-screen").classList.remove("hidden");
     
     
@@ -105,6 +106,7 @@ function gameLoop() {
         player.y < obstacle.y + obstacle.height &&
         player.y + player.height > obstacle.y) {
         gameOver();
+        return;
     }
 
     
