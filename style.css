@@ -6,15 +6,28 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Press Start 2P', cursive;
   color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 20px 10px;
+  box-sizing: border-box;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
 }
 
 #game-wrapper {
   position: relative;
   width: min(100%, 800px);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  transition: box-shadow 0.3s ease;
 }
 
 #hud {
@@ -24,23 +37,38 @@ body {
   right: 10px;
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  align-items: center;
+  font-size: 11px;
   text-shadow: 2px 2px 0 #000;
   z-index: 10;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#hud .stat {
+  display: inline-flex;
+  align-items: center;
 }
 
 button {
   font-family: inherit;
   background: #ff0055;
   color: white;
-  border: 4px solid #fff;
-  padding: 10px 15px;
+  border: 3px solid #fff;
+  padding: 8px 12px;
   cursor: pointer;
   text-transform: uppercase;
+  font-size: 10px;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 button:hover {
   background: #ffaa00;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
 }
 
 .overlay {
@@ -65,4 +93,168 @@ canvas {
   background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
   display: block;
   width: 100%;
+  transition: background 0.3s ease;
+}
+
+/* =========================================================
+   WHITE (LIGHT) MODE THEME
+   BUG 2: In White Mode, #hud text color is set to white (#ffffff)
+          against light background, making HUD stats invisible!
+   To FIX BUG 2:
+   Change `color: #ffffff;` to `color: #111827;` and restore text-shadow
+   ========================================================= */
+body.white-mode {
+  background-color: #e5e7eb;
+}
+
+body.white-mode #hud {
+  color: #ffffff; /* BUG 2: White text on light background! */
+  text-shadow: none; /* Without shadow, score and coins vanish! */
+}
+
+body.white-mode #game-wrapper {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+body.white-mode canvas {
+  background: linear-gradient(to bottom, #dbeafe, #93c5fd, #60a5fa);
+}
+
+body.white-mode button {
+  background: #2563eb;
+  border-color: #1e3a8a;
+  color: #ffffff;
+}
+
+body.white-mode button:hover {
+  background: #1d4ed8;
+}
+
+body.white-mode .overlay {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111827;
+}
+
+body.white-mode .overlay h1 {
+  color: #111827;
+}
+
+/* =========================================================
+   SARCASTIC ROAST & HINT HORSE MASCOT
+   ========================================================= */
+#horse-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: #1a1a2e;
+  border: 4px solid #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  padding: 12px 16px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+body.white-mode #horse-box {
+  background: #ffffff;
+  border: 4px solid #3b82f6;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+  color: #1f2937;
+}
+
+#horse-avatar {
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+#horse-avatar:hover {
+  transform: scale(1.1) rotate(-4deg);
+}
+
+#horse-avatar.bouncing {
+  animation: horseHop 0.5s ease;
+}
+
+@keyframes horseHop {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(6deg); }
+}
+
+#horse-dialogue {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.horse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.horse-title {
+  font-size: 11px;
+  color: #ffaa00;
+  letter-spacing: 1px;
+}
+
+body.white-mode .horse-title {
+  color: #d97706;
+}
+
+.horse-sub {
+  font-size: 8px;
+  color: #00ffff;
+  background: rgba(0, 255, 255, 0.15);
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+body.white-mode .horse-sub {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.12);
+}
+
+#horse-message {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #ffffff;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+body.white-mode #horse-message {
+  color: #1f2937;
+}
+
+#horse-poke-btn {
+  align-self: flex-start;
+  font-size: 9px;
+  padding: 6px 10px;
+  background: #ffaa00;
+  border: 2px solid #fff;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+}
+
+#horse-poke-btn:hover {
+  background: #ff5500;
+  color: #fff;
+}
+
+body.white-mode #horse-poke-btn {
+  background: #f59e0b;
+  border-color: #d97706;
+  color: #fff;
 }
