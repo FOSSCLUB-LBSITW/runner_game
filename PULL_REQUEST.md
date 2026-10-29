@@ -60,3 +60,4 @@ Companion box docks cleanly below the canvas with retro 8-bit pixel art and spee
 - [x] My code follows project guidelines
 - [x] I have linked the related issue
 ```
+

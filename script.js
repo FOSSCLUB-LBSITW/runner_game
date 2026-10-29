@@ -209,7 +209,7 @@ const horseRoasts = {
     ],
     hint: [
         "🐴 Roast: You're asking a horse for gaming advice? 💡 Hint: Obstacle speed starts at 6 and increments by 0.2 every lap.",
-        "🐴 Roast: Why is the game squished into 100 pixels? 💡 Hint: Check style.css line 17 (`max-width: 100px;` -> change to `800px;`)!",
+        "🐴 Roast: Why is the game squished into 100 pixels? 💡 Hint: Check style.css line 17 (`width: min(100%, 800px);`)!",
         "🐴 Roast: Hit pause and the game broke? 💡 Hint: Look at index.html line 18. That inline pause logic is chaos.",
         "🐴 Roast: High score only records when you do WORSE? 💡 Hint: Check script.js line 46 (`if (score < highScore)`). Someone inverted the math!",
         "🐴 Roast: Look at the sky! The grass is on the ceiling! 💡 Hint: In script.js line 130, `ctx.fillRect(0, 0, ...)` draws ground at y=0 instead of groundY!",
