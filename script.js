@@ -26,6 +26,7 @@ document.addEventListener("keydown", (e) => {
 function startGame() {
     document.getElementById("start-screen").classList.add("hidden");
     document.getElementById("game-over-screen").classList.add("hidden");
+    document.getElementById("pause-btn").classList.remove("hidden");
 
     obstacle.x = 800;
     obstacle.speed = 6;
@@ -43,6 +44,7 @@ function startGame() {
 
 function gameOver() {
     gameRunning = false;
+    document.getElementById("pause-btn").classList.add("hidden");
     document.getElementById("game-over-screen").classList.remove("hidden");
     
     // BUG: High score updates when score is LOWER than highScore!
