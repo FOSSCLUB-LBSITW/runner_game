@@ -1,18 +1,21 @@
 # Arcade Runner Game
 
-This is an **infinite runner game** built using **HTML, CSS, and JavaScript (Canvas API)**. It demonstrates core game mechanics like gravity, obstacle collision, and parallax scrolling, serving as a solid foundation for endless runner games.
+Arcade Runner Game is a colorful, cartoon-style endless runner built with HTML, CSS, and the Canvas API. Jump over stumps, collect coins, and see how far you can run.
 
 ## Features
 
-* **Core Mechanics:** Gravity, jump physics, and infinitely spawning obstacles.
-* **Scoring System:** Real-time score tracking with local storage to save your highest score.
-* **Collectibles:** Gather gold coins as you run.
-* **Retro UI:** Arcade-style HUD, custom fonts, and dedicated Start/Game Over screens.
-* **Environment:** Parallax background clouds for a dynamic running illusion.
+* **Animated runner:** A cartoon character with a running cycle and a jumping pose.
+* **Scrolling scenery:** Layered hills, drifting clouds, and a moving trail.
+* **Obstacles and coins:** Dodge illustrated stumps and collect animated coins.
+* **Run controls:** Pause or resume with the on-screen button or Escape.
+* **Score tracking:** Live score, saved personal best, and collected coin count.
+* **Colorful game screens:** Responsive start, pause, and game-over cards, with a light/dark theme toggle.
+* **Trail buddy:** An interactive mascot offers gameplay hints and encouragement.
 
 ## Controls
 
 * **Jump:** Press `Spacebar` or `ArrowUp`
+* **Pause / Resume:** Click the pause button or press `Escape`
 
 ## How to Run
 
