@@ -1,0 +1,44 @@
+[
+  {
+    "id": "seed_1",
+    "name": "NEON_VIPER",
+    "score": 280,
+    "coins": 42,
+    "date": "2026-10-28T12:00:00.000Z"
+  },
+  {
+    "id": "seed_2",
+    "name": "CYBER_ACE",
+    "score": 210,
+    "coins": 31,
+    "date": "2026-10-29T14:30:00.000Z"
+  },
+  {
+    "id": "seed_3",
+    "name": "PIXEL_DASH",
+    "score": 165,
+    "coins": 25,
+    "date": "2026-10-29T18:45:00.000Z"
+  },
+  {
+    "id": "seed_4",
+    "name": "ROAST_HORSE",
+    "score": 110,
+    "coins": 18,
+    "date": "2026-10-30T09:15:00.000Z"
+  },
+  {
+    "id": "seed_5",
+    "name": "RETRO_RUNNER",
+    "score": 65,
+    "coins": 10,
+    "date": "2026-10-30T11:00:00.000Z"
+  },
+  {
+    "id": "score_1793364905713_rkc8",
+    "name": "TEST_HERO",
+    "score": 195,
+    "coins": 30,
+    "date": "2026-10-30T12:55:05.713Z"
+  }
+]

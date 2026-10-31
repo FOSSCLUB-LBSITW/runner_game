@@ -31,6 +31,43 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
+function jump() {
+    if (gameRunning && !player.jumping) {
+        player.yVel = jumpPower;
+        player.jumping = true;
+    }
+}
+
+document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" || e.code === "ArrowUp") {
+        const startScreen = document.getElementById("start-screen");
+        const gameOverScreen = document.getElementById("game-over-screen");
+        if (!gameRunning && startScreen && !startScreen.classList.contains("hidden")) {
+            startGame();
+            return;
+        }
+        if (!gameRunning && gameOverScreen && !gameOverScreen.classList.contains("hidden")) {
+            startGame();
+            return;
+        }
+        jump();
+    }
+});
+
+// Mobile touch and pointer controls for PWA
+canvas.addEventListener("touchstart", (e) => {
+    if (gameRunning) {
+        e.preventDefault();
+        jump();
+    }
+}, { passive: false });
+
+canvas.addEventListener("pointerdown", (e) => {
+    if (gameRunning && e.pointerType !== "touch") {
+        jump();
+    }
+});
+
 function startGame() {
     document.getElementById("start-screen").classList.add("hidden");
     document.getElementById("game-over-screen").classList.add("hidden");
@@ -372,6 +409,7 @@ const themeBtn = document.getElementById("theme-btn");
 const horseMessage = document.getElementById("horse-message");
 const horseAvatar = document.getElementById("horse-avatar");
 const horsePokeBtn = document.getElementById("horse-poke-btn");
+const metaThemeColor = document.getElementById("meta-theme-color");
 
 let isWhiteMode = false;
 
@@ -379,11 +417,15 @@ if (themeBtn) {
     themeBtn.addEventListener("click", () => {
         isWhiteMode = !isWhiteMode;
         document.body.classList.toggle("white-mode", isWhiteMode);
-        themeBtn.textContent = isWhiteMode ? "☀️" : "🌙";
+        themeBtn.innerText = isWhiteMode ? "🌙 Dark Mode" : "☀️ White Mode";
         themeBtn.title = isWhiteMode ? "Switch to evening colors" : "Switch to sunny colors";
         themeBtn.setAttribute("aria-label", themeBtn.title);
         draw();
         triggerHorse(isWhiteMode ? "theme-light" : "theme-dark");
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute("content", isWhiteMode ? "#e5e7eb" : "#121212");
+        }
+        triggerHorse(isWhiteMode ? "theme-white" : "theme-dark");
     });
 }
 
@@ -420,6 +462,16 @@ const horseRoasts = {
     milestone: [
         "Look at you go — {score} points and counting!",
         "That's {score}! Your trail buddy is doing a happy little trot."
+        "🐴 Roast: Score {score}?! Wait, you actually survived this long? I'm legitimately shocked.",
+        "🐴 Roast: Triple digit score! Don't get cocky now, the next jump is going to humble you."
+    ],
+    offline: [
+        "🐴 Roasted: You're OFFLINE! Luckily, your terrible jump reflexes don't require an internet connection.",
+        "🐴 Roasted: No Wi-Fi detected! Our PWA service worker cached the whole game—zero excuse for missing that jump."
+    ],
+    installed: [
+        "🐴 Roasted: You actually installed this PWA onto your device?! Bold choice. Now you can get roasted on the go!",
+        "🐴 Roasted: Neon Runner is now pinned to your device. May your jump timing improve with permanent residency."
     ]
 };
 
@@ -467,3 +519,76 @@ if (horsePokeBtn) {
 if (horseAvatar) {
     horseAvatar.addEventListener("click", () => triggerHorse("hint"));
 }
+
+// =========================================================
+// PROGRESSIVE WEB APP (PWA) SERVICE WORKER & APP CONTROLS
+// =========================================================
+let deferredPrompt = null;
+const installBtn = document.getElementById("install-btn");
+const offlineBadge = document.getElementById("offline-badge");
+
+// Register Service Worker
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("./sw.js")
+            .then((registration) => {
+                console.log("Neon Runner Service Worker registered:", registration.scope);
+            })
+            .catch((error) => {
+                console.warn("Neon Runner Service Worker registration failed:", error);
+            });
+    });
+}
+
+// Intercept beforeinstallprompt for custom install button
+window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) {
+        installBtn.classList.remove("hidden");
+    }
+});
+
+if (installBtn) {
+    installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === "accepted") {
+            installBtn.classList.add("hidden");
+        }
+        deferredPrompt = null;
+    });
+}
+
+window.addEventListener("appinstalled", () => {
+    if (installBtn) {
+        installBtn.classList.add("hidden");
+    }
+    triggerHorse("installed");
+});
+
+// Network status management (Offline detection)
+function updateNetworkStatus() {
+    if (!navigator.onLine) {
+        if (offlineBadge) offlineBadge.classList.remove("hidden");
+        triggerHorse("offline");
+    } else {
+        if (offlineBadge) offlineBadge.classList.add("hidden");
+    }
+}
+
+window.addEventListener("online", updateNetworkStatus);
+window.addEventListener("offline", updateNetworkStatus);
+if (!navigator.onLine) {
+    updateNetworkStatus();
+}
+
+// Handle shortcut URL (?action=play)
+window.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("action") === "play") {
+        startGame();
+    }
+});

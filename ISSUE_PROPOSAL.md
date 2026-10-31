@@ -1,15 +1,17 @@
-# GitHub Issue Proposals
+# GitHub Issue Proposal: Progressive Web App (PWA)
 
-This file contains ready-to-use GitHub Issue templates for **Commit Overflow / FOSS Club** events. You can copy-paste these directly into the GitHub Issue tracker. Both comply with `.github/workflows/issue-validation.yml` and repository issue schemas.
+This file contains the ready-to-use GitHub Issue proposal for porting **Runner Game** into a **Progressive Web App (PWA)** for the **Commit Overflow / FOSS Club** event. It strictly adheres to `.github/ISSUE_TEMPLATE/feature_request.yml` and `.github/workflows/issue-validation.yml`.
 
 ---
 
-## Option 1: Feature Proposal (Recommended)
-**Use this if proposing the Dark/White Mode & Roasting Horse as a new feature.**
+### Direct 1-Click Link to Create the Issue on Upstream:
+👉 [**Open Pre-filled Feature Request on FOSSCLUB-LBSITW/runner_game**](https://github.com/FOSSCLUB-LBSITW/runner_game/issues/new?template=feature_request.yml&title=%5BFeature%5D%3A+Port+Runner+Game+to+Progressive+Web+App+%28PWA%29+with+Offline+Support&description=Convert+the+Runner+Game+into+a+full+Progressive+Web+App+%28PWA%29+that+can+be+installed+on+desktop%2C+tablet%2C+and+mobile+devices+with+full+offline+functionality.%0A%0A%23%23%23+Motivation%0A-+Enables+users+to+install+the+game+on+desktop%2C+Android%2C+and+iOS+devices+with+dedicated+app+icons+and+standalone+window+mode.%0A-+Allows+playing+the+game+offline+without+any+internet+connection+via+Service+Worker+caching.%0A-+Adds+touch+controls+%28tap+to+jump%29+for+mobile+gameplay.%0A-+Improves+engagement+with+native+install+prompt+and+offline+status+indicators.&proposed_implementation=1.+**Web+App+Manifest+%28manifest.json%29**%3A%0A+++-+Provide+manifest+with+app+metadata%2C+standalone+display+mode%2C+orientation%2C+colors%2C+and+shortcuts.%0A+++-+Include+multi-resolution+app+icons+%28192x192%2C+512x512%2C+maskable+variants%2C+and+vector+SVG%29.%0A%0A2.+**Service+Worker+%28sw.js%29**%3A%0A+++-+Implement+cache+storage+with+versioning.%0A+++-+Pre-cache+all+static+assets+%28index.html%2C+style.css%2C+script.js%2C+manifest.json%2C+icons%29.%0A+++-+Implement+Stale-While-Revalidate+caching+strategy+with+offline+fallback.%0A%0A3.+**Install+%26+Network+UI+Integration**%3A%0A+++-+Listen+for+beforeinstallprompt+event+and+provide+an+in-game+%27Install+App%27+HUD+button.%0A+++-+Display+an+offline+status+badge+when+internet+connectivity+is+lost.%0A+++-+Add+mobile+touch+jump+controls+on+canvas.%0A+++-+Sync+theme-color+meta+tag+with+dark%2Fwhite+theme.&additional_context=Compatible+with+all+modern+browsers+%28Chrome%2C+Edge%2C+Safari%2C+Firefox%29.+Zero+external+build+dependencies+required.)
+
+---
 
 ### Title:
 ```text
-[Feature]: Add Dark/White Mode Toggle and Sarcastic Roast Horse Companion
+[Feature]: Port Runner Game to Progressive Web App (PWA) with Offline Support
 ```
 
 ### Labels:
@@ -18,75 +20,36 @@ This file contains ready-to-use GitHub Issue templates for **Commit Overflow / F
 ### Body (Copy & Paste):
 ```markdown
 ### Feature Description
-Add a theme toggle supporting Dark Mode and White (Light) Mode, alongside an interactive, retro pixel-art "Roast Horse" companion bot. The horse serves as a sarcastic commentator that provides helpful gameplay hints, explains bug mechanics, and humorously roasts the player whenever they crash, shrink, or make poor jumps.
+Convert the Runner Game into a full Progressive Web App (PWA) that can be installed on desktop, tablet, and mobile devices with full offline functionality.
 
-In addition, an intentional White Mode contrast bug (where HUD stats remain white on a light background) has been integrated to provide an engaging debugging challenge for participants during the event.
+### Motivation
+- Enables users to install the game on desktop, Android, and iOS devices with dedicated app icons and standalone window mode.
+- Allows playing the game offline without any internet connection via Service Worker caching.
+- Adds touch controls (tap to jump) for mobile gameplay.
+- Improves engagement with native install prompt and offline status indicators.
 
 ### Proposed Implementation
-1. **Theme Switcher (`style.css` & `script.js`):**
-   - Add a `#theme-btn` in the HUD to toggle the `.white-mode` CSS class on `<body>`.
-   - Update canvas background gradients, button styles, and overlay themes according to the active theme.
-   - Introduce an intentional bug: in White Mode, `#hud` text remains `#ffffff`, making stats invisible until fixed by the participant.
+1. **Web App Manifest (`manifest.json`)**:
+   - Provide manifest with app metadata, standalone display mode, orientation, colors, and shortcuts.
+   - Include multi-resolution app icons (192x192, 512x512, maskable variants, and vector SVG).
 
-2. **Sarcastic Horse Companion (`index.html`, `style.css`, `script.js`):**
-   - Render a custom 8-bit retro pixel-art SVG horse in `#horse-box`.
-   - Implement an interactive dialogue system that dynamically triggers witty roasts and legitimate game/bug hints:
-     - On game start
-     - On game over / collision
-     - On coin collection / player shrink
-     - On theme toggling (reacting to dark vs blinding white mode)
-     - On score milestones (25, 50, 100)
-     - On-demand via the "Poke for Hint" button or clicking the horse avatar.
-   - Include retro Web Audio API synthesized sound chirps for arcade immersion.
+2. **Service Worker (`sw.js`)**:
+   - Implement cache storage with versioning.
+   - Pre-cache all static assets (`index.html`, `style.css`, `script.js`, `manifest.json`, icons).
+   - Implement Stale-While-Revalidate caching strategy with offline fallback.
+
+3. **Install & Network UI Integration**:
+   - Listen for `beforeinstallprompt` event and provide an in-game "Install App" HUD button.
+   - Display an offline status badge when internet connectivity is lost.
+   - Add mobile touch jump controls on canvas.
+   - Sync `theme-color` meta tag with dark/white theme.
 
 ### Additional Context
-- Fits the retro arcade visual style using the `'Press Start 2P'` font.
-- Responsive layout using `#app-container` so the companion docks cleanly underneath the game viewport.
+- Compatible with all modern browsers (Chrome, Edge, Safari, Firefox).
+- Zero external build dependencies required (vanilla web technologies).
 
 ### Checklist
 - [x] I confirm that I want to work on this feature.
 - [x] I have searched the existing issues for similar feature requests.
 - [x] I have read the `CONTRIBUTING.md` guidelines.
 ```
-
----
-
-## Option 2: Bug Fix Proposal (Bug Report)
-**Use this if submitting an issue for the intentional White Mode contrast bug.**
-
-### Title:
-```text
-[Bug]: HUD text becomes invisible (white on white) when toggling White Mode
-```
-
-### Labels:
-`bug`, `needs triage`
-
-### Body (Copy & Paste):
-```markdown
-### Bug Description
-When switching from Dark Mode to White Mode using the theme button, the HUD statistics (Score, High Score, Coins) disappear from view. The text color remains set to `#ffffff` with `text-shadow: none`, rendering white text against a light background.
-
-### Steps to Reproduce
-1. Open `index.html` in a web browser.
-2. Click the `☀️ White Mode` button in the top HUD.
-3. Observe that the game theme turns light, but the Score, High Score, and Coins text completely vanish.
-
-### Proposed Solution
-In `style.css`, update the `body.white-mode #hud` selector:
-```css
-body.white-mode #hud {
-  color: #111827; /* Change from #ffffff to dark gray/black */
-  text-shadow: none;
-}
-```
-
-### Additional Context
-- The Sarcastic Roast Horse companion points out this bug in real time with the hint: *"White Mode enabled! Too bad you can't read your score anymore! Inspect body.white-mode #hud in style.css."*
-
-### Checklist
-- [x] I confirm that I want to work on this issue.
-- [x] I have searched the existing issues for similar bugs.
-- [x] I have read the `CONTRIBUTING.md` guidelines.
-```
-

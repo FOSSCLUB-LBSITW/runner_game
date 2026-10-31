@@ -2,10 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#8edfff" />
-  <title>Arcade Runner Game</title>
+  <title>Arcade Runner Event</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Progressive Web App (PWA) Manifest & Meta Tags -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#121212" id="meta-theme-color" />
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
+  <meta name="description" content="Retro 2D endless runner arcade game featuring jumping mechanics, coin collecting, high scores, and witty roast companion." />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Neon Runner" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
 </head>
 <body>
 
@@ -33,6 +46,9 @@
           <button id="start-btn" class="primary-button">Let’s run <span>→</span></button>
           <p class="control-hint">SPACE or ↑ TO JUMP</p>
         </div>
+        <h1>NEON RUNNER</h1>
+        <p class="controls-hint">Tap screen or press Space / Up to jump</p>
+        <button id="start-btn">Start Game</button>
       </div>
 
       <div id="game-over-screen" class="overlay hidden">
