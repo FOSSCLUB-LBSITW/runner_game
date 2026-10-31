@@ -10,11 +10,12 @@ document.getElementById("high-score").textContent = highScore;
 const groundY = 300;
 const gravity = 1.2;
 const jumpPower = -16;
+const coinY = 210;
 
 let player = { x: 50, y: groundY, width: 30, height: 50, yVel: 0, jumping: false };
 let obstacle = { x: 800, y: groundY + 10, width: 40, height: 40, speed: 6 };
 let clouds = [ { x: 200, y: 115 }, { x: 600, y: 155 }, { x: 1000, y: 100 } ];
-let coins = [ { x: 400, y: 160, active: true }, { x: 900, y: 160, active: true } ];
+let coins = [ { x: 400, y: coinY, active: true }, { x: 900, y: coinY, active: true } ];
 let sceneryOffset = 0;
 let animationFrame = 0;
 let lastMilestone = 0;
@@ -85,8 +86,8 @@ function startGame() {
     player.y = groundY;
     player.yVel = 0;
     player.jumping = false;
-    coins[0] = { x: 400, y: 160, active: true };
-    coins[1] = { x: 900, y: 160, active: true };
+    coins[0] = { x: 400, y: coinY, active: true };
+    coins[1] = { x: 900, y: coinY, active: true };
     sceneryOffset = 0;
     document.getElementById("pause-btn").setAttribute("aria-label", "Pause game");
     document.getElementById("pause-btn").title = "Pause game";
@@ -417,8 +418,8 @@ if (themeBtn) {
     themeBtn.addEventListener("click", () => {
         isWhiteMode = !isWhiteMode;
         document.body.classList.toggle("white-mode", isWhiteMode);
-        themeBtn.innerText = isWhiteMode ? "🌙 Dark Mode" : "☀️ White Mode";
-        themeBtn.title = isWhiteMode ? "Switch to evening colors" : "Switch to sunny colors";
+        themeBtn.innerText = isWhiteMode ? "🌙" : "☀️";
+        themeBtn.title = isWhiteMode ? "Switch to dark mode" : "Switch to light mode";
         themeBtn.setAttribute("aria-label", themeBtn.title);
         draw();
         triggerHorse(isWhiteMode ? "theme-light" : "theme-dark");
@@ -461,7 +462,7 @@ const horseRoasts = {
     ],
     milestone: [
         "Look at you go — {score} points and counting!",
-        "That's {score}! Your trail buddy is doing a happy little trot."
+        "That's {score}! Your trail buddy is doing a happy little trot.",
         "🐴 Roast: Score {score}?! Wait, you actually survived this long? I'm legitimately shocked.",
         "🐴 Roast: Triple digit score! Don't get cocky now, the next jump is going to humble you."
     ],
